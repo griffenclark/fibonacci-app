@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t griffenclark/fibonacci-test -f ./fibonacci-client/Dockerfile.dev ./client
+  - docker build -t griffenclark/fibonacci-test -f ./fibonacci-client/Dockerfile.dev ./fibonacci-client
 
 script:
   - docker run griffenclark/fibonacci-test npm test -- --coverage
