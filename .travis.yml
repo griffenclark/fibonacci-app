@@ -3,24 +3,24 @@ services:
   - docker
 
 before_install:
-  - docker build -t griffenclark/fibonacci-test -f ./fibonacci-client/Dockerfile.dev ./fibonacci-client
+  - docker build -t ggclark/fibonacci-test -f ./fibonacci-client/Dockerfile.dev ./fibonacci-client
 
 script:
-  - docker run -e CI=true griffenclark/fibonacci-test npm run test -- --coverage
+  - docker run -e CI=true ggclark/fibonacci-test npm run test -- --coverage
 
 after_success:
-  - docker build -t griffenclark/fibonacci-client ./fibonacci-client
-  - docker build -t griffenclark/fibonacci-nginx ./nginx
-  - docker build -t griffenclark/fibonacci-server ./fibonacci-server
-  - docker build -t griffenclark/fibonacci-worker ./fibonacci-worker
+  - docker build -t ggclark/fibonacci-client ./fibonacci-client
+  - docker build -t ggclark/fibonacci-nginx ./nginx
+  - docker build -t ggclark/fibonacci-server ./fibonacci-server
+  - docker build -t ggclark/fibonacci-worker ./fibonacci-worker
   
   # Docker login
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # Push images
-  - docker push griffenclark/fibonacci-client
-  - docker push griffenclark/fibonacci-nginx
-  - docker push griffenclark/fibonacci-server
-  - docker push griffenclark/fibonacci-worker
+  - docker push ggclark/fibonacci-client
+  - docker push ggclark/fibonacci-nginx
+  - docker push ggclark/fibonacci-server
+  - docker push ggclark/fibonacci-worker
 
 
