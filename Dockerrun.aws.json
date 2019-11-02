@@ -1,0 +1,37 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "fibonacci-client",
+            "image": "ggclark/fibonacci-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "fibonacci-server",
+            "image": "ggclark/fibonacci-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "fibonacci-worker",
+            "image": "ggclark/fibonacci-worker",
+            "essential": false
+        },
+        {
+            "name": "fibonacci-nginx",
+            "image": "ggclark/fibonacci-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "fibonacci-server",
+                "fibonacci-client"
+            ]
+        }
+    ]
+}
