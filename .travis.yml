@@ -1,0 +1,26 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t griffenclark/fibonacci-test -f ./fibonacci-client/Dockerfile.dev ./client
+
+script:
+  - docker run griffenclark/fibonacci-test npm test -- --coverage
+
+after_success:
+  - docker build -t griffenclark/fibonacci-client ./fibonacci-client
+  - docker build -t griffenclark/fibonacci-nginx ./nginx
+  - docker build -t griffenclark/fibonacci-server ./fibonacci-server
+  - docker build -t griffenclark/fibonacci-worker ./fibonacci-worker
+  
+  # Docker login
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Push images
+  - docker push griffenclark/fibonacci-client
+  - docker push griffenclark/fibonacci-nginx
+  - docker push griffenclark/fibonacci-server
+  - docker push griffenclark/fibonacci-worker
+
+
