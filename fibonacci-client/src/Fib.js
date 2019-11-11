@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import ax from 'axios';
+
+const axios = ax.create({ baseUrl: 'http://localhost:5000' })
 
 class Fib extends Component {
     state = {
